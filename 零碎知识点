@@ -1,0 +1,61 @@
+1.vue自动过滤用户输入的首尾空白字符
+添加trim修饰符
+<el-input v-model.trim="msg"></el-input>
+
+2.表格时间排序
+加入sortable属性
+<el-table-column label="创建时间" prop="createTime" sortable></el-table-column>
+
+3.修改对象的值 视图不刷新
+使用set方法来赋值
+this.$set(this.obj, 'name', '新的值') 或者 Vue.set(this.obj, 'name', '新的值')
+
+4.父组件传给子组件的props 在子组件中是不能修改的 如果要修改 需要把props的值重新赋给一个新定义的数据
+
+5.视图渲染完成后再执行的方法
+this.$nextTick(()=>{
+  this.show()
+})
+
+6.vue阻止事件冒泡事件
+@click.stop
+
+7.点击哪个按钮哪个按钮加样式
+通过给按钮设置 :class="active:btnIndex===index" 
+data: btnIndex:null,点击事件中把this.btnIndex=index
+
+8.深复制
+如果b赋值给a 然后对a进行改变 b也跟着变化 此时需要用深复制把b复制给a
+a=JSON.parse(JSON.stringify(b)) 这样a再怎么改变 b也不会跟着变化了
+
+9.input框绑定enter键 
+@keyup.enter.native="方法名"
+
+10.文字...隐藏 
+加样式white-space: nowrap;text-overflow: ellipsis;overflow:hidden
+
+11.模板字符串
+用``将字符串包裹起来，用${}包裹变量
+var String = a + ‘+’ + b + ‘=’ + (a+b) 
+const String = `${a}+${b}=${a+b}`
+
+12.路由传参
+name和params配套，path和query配套
+this.$router.push({
+  name: 'confirm',
+  params: { rowData: row.dataSource }
+})
+
+this.$router.push({
+  path: '/personnel/caseReview/review-details/' + row.businessId + '/' + row.id
+})
+用params方法不会在URL路径中显示拼接
+用query方法会显示拼接
+
+12.版权
+Copyright&nbsp;&copy;&nbsp;Wise Wrong - 2016 All rights reserved
+
+13.初始化data里的数据
+init () {
+  Object.assign(this.$data, this.$options.data())
+}
