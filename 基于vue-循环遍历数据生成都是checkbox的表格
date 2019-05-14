@@ -1,0 +1,115 @@
+多样化element-ui的表格
+
+-表格的html
+
+<el-table :data="keywords?tables.slice((currentPage-1)*pageSize, currentPage*pageSize):currentPageData" border v-loading="loading">
+  // 这一列是标准的表格
+  <el-table-column align="center" label="名称" prop="name"></el-table-column> 
+  // 这一列是表头有一个复选框，可以全选整列的内容，表格中都是复选框 (自定义列)
+  <el-table-column align="center" v-for="(item, index) in tableThList" :key="index"> // 遍历需要展示为这种列的数据
+    <template slot="header" slot-scope="scope">  <!-- scope不要删掉  -->
+      <el-checkbox v-model="item.checked" @change="checkedAll(item)"></el-checkbox>
+      <span>{{item.priority}}类</span>
+    </template>
+    <template slot-scope="scope">
+      <span v-if="scope.row[item.priority] === 2">无</span>
+      <span v-else>
+        <el-checkbox v-model="scope.row[item.priority]" @change="checkboxChange(item.priority,scope.row)"></el-checkbox>
+      </span>
+    </template>
+  </el-table-column>
+  // 这一列是表头为正常表头，表格中为复选框
+  <el-table-column align="center" v-if="tableThList.length>1">
+    <template slot="header">
+      <span>横向全选</span>
+    </template>
+    <template slot-scope="scope">
+      <el-checkbox v-model="scope.row.checkedAll" @change="rowCheckedAll(scope.row)"></el-checkbox>
+    </template>
+  </el-table-column>
+</el-table>
+
+currentPageData:[
+{},
+]
+
+tableThList: ['A','B','C']
+
+-表格的js代码
+// 每个复选框点击的方法（不包括全选，该表格包括列全选和横向全选）
+// 主要是根据数据改变复选框的选中状态 还需要注意的是如果一整列的复选框都选中，那么该列的列全选框也需要选中，同理横向全选也是如此
+checkboxChange(priority, row) {
+  const arr = []
+  for (const data of this.currentPageData) { // {'caseDomain': '名称','A': 0,'B': 0,'C': 0,'D': 2,'S': 0,'checkedAll': 0}
+    for (const key in data) { // caseDomain A B C D S checkedAll
+      if (key === priority) { // 判断key与传过来的priority是否相等 priority=A||B||C||D||S
+        arr.push(data[key]) // 相等就往arr数组push这个key的value
+      }
+    }
+  }
+  // 判断列向是否全部选中
+  if (arr.indexOf(0) === -1 && arr.indexOf(false) === -1) { 
+    for (const tdata of this.tableThList) {
+      if (tdata.priority === priority) {
+        tdata.checked = true // 表头checkbox选中
+      }
+    }
+  } else {
+    for (const tdata of this.tableThList) {
+      if (tdata.priority === priority) {
+        tdata.checked = 0 // 表头checkbox不选中
+      }
+    }
+  }
+  
+  // 判断横向是否全部选中
+  const rArr = []
+  for (const rkey in row) {
+    if (rkey !== 'checkedAll' && rkey !== 'caseDomain') {
+      rArr.push(row[rkey])
+    }
+  }
+  if (rArr.indexOf(0) === -1 && rArr.indexOf(false) === -1) {
+    row.checkedAll = true
+  } else {
+    row.checkedAll = 0
+  }
+},
+
+// 列全选事件
+checkedAll(item) { 
+  for (const data of this.currentPageData) { // {'caseDomain': '名称','A': 0,'B': 0,'C': 0,'D': 2,'S': 0,'checkedAll': 0}
+    for (const key in data) {
+      if (item.checked) {
+        if (key === item.priority) {
+          if (data[key] !== 2) {
+            data[key] = true
+          }
+        }
+      } else {
+        if (key === item.priority) {
+          if (data[key] !== 2) {
+            data[key] = 0
+          }
+        }
+      }
+    }
+  }
+},
+
+// 横向全选事件
+rowCheckedAll(row) {
+  if (row.checkedAll) {
+    for (const key in row) {
+      if (row[key] === 0 || row[key] === false) {
+        row[key] = true
+      }
+    }
+  } else {
+    for (const key in row) {
+      if (row[key] === true) {
+        row[key] = 0
+      }
+    }
+  }
+},
