@@ -1,0 +1,51 @@
+1.表格延时搜索（后台分页，后台搜索）
+-搜索框的html
+<el-input placeholder="关键字" v-model="keywords" size="small"></el-input>
+
+-js
+// 监听keywords
+watch: {
+  keywords(val, oldVal) {
+    delay(() => {
+      this.currentPage = 1 // 后台分页，重置当前页
+      this.getData() // 调用获取数据接口，接口需要提供keywords字段获取前端的数据
+    }, 500)
+  }
+},
+// 节流函数
+const delay = (function () {
+	let timer = 0
+	return function (callback, ms) {
+		clearTimeout(timer)
+		timer = setTimeout(callback, ms)
+	}
+})()
+
+2.表格搜索（前端分页，前端搜索）
+-表格的html
+<el-table :data="tables.slice((currentPage-1)*pageSize, currentPage*pageSize)"></el-table>
+
+-js
+// 用过滤器在已请求到的所有表格数据tableData中实现搜索
+computed: {
+  tables: function() {
+    const search = this.keywords
+    if (search) {
+      return this.formData.filter(dataNews => {
+        return Object.keys(dataNews).some(key => {
+          return (
+            String(dataNews[key]).toLowerCase().indexOf(search.toLowerCase()) > -1
+          )
+        })
+      })
+    }
+    return this.tableData
+  }
+},
+// 监听表格变化，重置当前页，重置表格数据总条数
+watch: {
+  tables(newName, oldName) {
+    this.currentPage = 1
+    this.totalNum = this.tables.length
+  }
+}
