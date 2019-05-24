@@ -59,3 +59,9 @@ Copyright&nbsp;&copy;&nbsp;Wise Wrong - 2016 All rights reserved
 init () {
   Object.assign(this.$data, this.$options.data())
 }
+
+14.当一个 form 元素中只有一个输入框时，在该输入框中按下回车应提交该表单。
+如果希望阻止这一默认行为，可以在 <el-form> 标签上添加 @submit.native.prevent
+
+15.el-form按回车键触发确定方法
+在<el-input>中绑定@keyup.enter.native="调用确定(提交)按钮的方法"
