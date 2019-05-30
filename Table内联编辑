@@ -1,0 +1,16 @@
+内联编辑即直接在表格中编辑数据，不用弹窗编辑
+获取到后台json之后，遍历json，往每一个对象里面插入一个edit[true or false]判断符，来表示当前行是否处于编辑状态
+之后通过v-show动态切换输入框和span就可以了
+
+<el-table-column min-width="300px" label="可以编辑的列">
+  <template scope="scope">
+    <el-input v-show="scope.row.edit" size="small" v-model="scope.row.title"></el-input>
+    <span v-show="!scope.row.edit">{{ scope.row.title }}</span>
+  </template>
+</el-table-column>
+<el-table-column align="center" label="编辑" width="120">
+  <template scope="scope">
+    <el-button v-show='!scope.row.edit' type="primary" @click='scope.row.edit=true' size="small" icon="edit">编辑</el-button>
+    <el-button v-show='scope.row.edit' type="success" @click='scope.row.edit=false' size="small" icon="check">完成</el-button>
+  </template>
+</el-table-column>
