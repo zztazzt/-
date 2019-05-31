@@ -1,0 +1,20 @@
+多个异步方法执行顺序问题
+可以用async + await
+举例子：
+function getData(){
+	return new Promise(function(resolve,reject){
+		setTimeout(function(){
+			resolve('233')
+		},2000)
+	})
+}
+
+async function test(){
+	let ss = await getData()
+	console.log(ss)
+	console.log('466')
+}
+
+test();
+
+先执行getData方法，获得一个promise，过两秒后打印233，然后继续执行打印466
