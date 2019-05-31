@@ -1,0 +1,95 @@
+npm install vuex --save
+
+在src里面新建文件夹store，store里新建index.js文件
+└── store
+    ├── index.js          # 我们组装模块并导出 store 的地方
+    
+index.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: { // Vuex状态
+    userName: '',
+    todos: [
+      { id:1, text: 'eat', done: true },
+      { id:2, text: 'sleep', done: false}
+    ]
+    // 在vue组件中用computed返回userName状态
+    // computed:{
+    //  userName(){
+    //    return this.$store.state.userName
+    //  }
+    // }
+    // mapState辅助函数
+    // import { mapState } from 'vuex'
+    // computed: mapState({
+    //  userName: state => state.userName // 同名时也可以直接写成'userName'
+    // })
+  },
+  getters: { // 派生state中的状态，类似与v2ue中的computed计算属性
+    doneTodos: state => {
+      return state.todos.filter(todo => todo.done)
+    }
+    // Getter可以接受其他getter作为第二个参数(第一个参数不能删除)
+    doneTodosCount: (state, getters) => {
+      return getters.doneTodos.length
+    }
+    // 在vue组件中用computed返回getters
+    // computed: {
+    //  doneTodos () {
+    //   return this.$store.getters.doneTodos
+    //  }
+    // }
+    // mapGetters辅助函数(注意数组和对象区分)
+    // ...mapGetters([
+    //  'doneTodos',
+    //  'doneTodosCount'
+    // ])
+    // 另取名字
+    // ...mapGetters({
+    //  todo: 'doneTodos',
+    //  count: 'doneTodosCount'
+    // })
+  },
+  mutations: { // 更改状态(同步)
+    SET_USERNAME: (state, userName) => {
+      state.userName = userName
+    }
+    // 在vue组件中commit提交mutations
+    // this.$store.commit('SET_USERNAME', 'z') // 调用SET_USERNAME方法把vuex中的userName改为'z'
+    // mapMutations辅助函数
+    // methods: {
+    //  ...mapMutations([
+    //    'SET_USERNAME' // 将this.SET_USERNAME() 映射为 this.$store.commit('SET_USERNAME')
+    //  ])
+    // 另取名字
+    //  ...mapMutations({
+    //    setUserName: 'SET_USERNAME' // 将this.serUserName 映射为 this.$store.commit('SET_USERNAME')
+    //  })
+    // }
+  },
+  actions: { // 提交mutations (异步)
+    getUserName({ commit }, params){
+      //请求接口获取用户名
+      ...(params).then(res => {
+        const userName = res.userName
+        commit('SET_USERNAME', userName) // 调用SET_USERNAME方法把vuex中的userName重新赋值
+      })
+    }
+    // 在vue组件中调用actions里面的方法
+    // this.$store.dispatch('getUserName', '要传的参数')
+    // ...mapActions([
+    //  'getUserName' // 将this.getUserName() 映射为 this.$store.dispatch('getUserName')
+    // ])
+    // 另取名字
+    // ...mapActions([
+    //  getData: 'getUserName' // 将this.getData() 映射为 this.$store.dispatch('getUserName')
+    // ]) 
+  },
+  modules: { // 模块化 每个模块有自己的state,mutation,action,getter
+  }
+})
+
+export default store
