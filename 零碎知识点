@@ -94,3 +94,18 @@ watch: {
     console.log(newVal, oldVal)
   }
 }
+
+18.多选下拉框，需要选择全部数据之后再调用某一个方法时用visible-change方法，即下拉框隐藏时调用
+<el-select v-model="data" multiple @visible-change="show($event)">
+  <el-option
+    v-for="item in options"
+    :key="item.value"
+    :label="item.label"
+    :value="item.value">
+  </el-option>
+</el-select>
+show(callback) { // callback为true(下拉框显示)或者false(下拉框隐藏)
+  if(!callback) {
+    // callback是false时执行这里的代码，即下拉框隐藏时执行
+  }
+}
