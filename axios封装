@@ -26,69 +26,65 @@ service.interceptors.request.use(config => {
 
 // respone拦截器
 service.interceptors.response.use(
-	response => {
-		const res = response.data
-		// 对登录接口做特殊处理 登录接口没有返回code 和 message
-    // 下面的判断根据具体情况判断
-		if (res.code === 1 || res.username || res.size) {
-			return res
-		} else if (res.code !== 1) {
-			if (response.config.url.indexOf('exportCaseReport') !== -1) {
-				return res
-			}
-			if (res.message) {
-				Message({
-					message: res.message,
-					type: 'error',
-					duration: 5 * 1000
-				})
-			}
-			if (res.code !== 401 && res.msg) {
-				Message({
-					message: res.msg,
-					type: 'error',
-					duration: 5 * 1000
-				})
-			} else if (res.code === 401) { // 401为登录超时
-				Message({
-					message: '登录超时或已过期',
-					type: 'error',
-					duration: 5 * 1000
-				})
-				// 退出登录
-				window.store.dispatch('FedLogOut')
-					.then(() => {
-						location.reload() // 刷新页面
-						// window.location.href = '/login'
-					})
-			}
-		}
-	},
-	error => {
-    // 下面的判断根据具体情况判断
-		if (error.response) {
-			Message({
-				message: error.message,
-				type: 'error',
-				duration: 5 * 1000
-			})
-			if (error.response.data) {
-				return Promise.reject(error.response.data)
-			}
-		} else if (error.message) {
-			let message = error.message
-			if (error.message.indexOf('timeout')) {
-				message = '请求响应超时，请重试！'
-			}
-			Message({
-				message: '请求响应超时',
-				type: 'error',
-				duration: 5 * 1000
-			})
-		} else {
-			return Promise.reject(error)
-		}
-	}
+ response => {
+  const res = response.data
+  // 对登录接口做特殊处理 登录接口没有返回code 和 message
+  // 下面的判断根据具体情况判断
+  if (res.code === 1 || res.username || res.size) {
+   return res
+  } else if (res.code !== 1) {
+  if (res.message) {
+   Message({
+    message: res.message,
+    type: 'error',
+    duration: 5 * 1000
+   })
+  }
+  if (res.code !== 401 && res.msg) {
+   Message({
+    message: res.msg,
+    type: 'error',
+    duration: 5 * 1000
+   })
+  } else if (res.code === 401) { // 401为登录超时
+   Message({
+    message: '登录超时或已过期',
+    type: 'error',
+    duration: 5 * 1000
+   })
+   // 退出登录
+   window.store.dispatch('FedLogOut')
+    .then(() => {
+     location.reload() // 刷新页面
+    })
+   }
+  }
+ },
+ error => {
+ // 下面的判断根据具体情况判断
+  if (error.response) {
+   Message({
+    message: error.message,
+    type: 'error',
+    duration: 5 * 1000
+   })
+   if (error.response.data) {
+    return Promise.reject(error.response.data)
+   }
+  } else if (error.message) {
+   let message = error.message
+   if (error.message.indexOf('timeout')) {
+    message = '请求响应超时，请重试！'
+   }
+   Message({
+    message: '请求响应超时',
+    type: 'error',
+    duration: 5 * 1000
+   })
+  } else {
+   return Promise.reject(error)
+  }
+ }
 )
 export default service
 
@@ -96,17 +92,17 @@ export default service
 case.js
 import request from '@/utils/request'
 class Case {
-	constructor() {
-		this.baseUrl = 'case-server/'
-	}
-	// 获取用例列表数据 - 总库/项目库
-	getCaseListData(params)
-		return request({
-			url: this.baseUrl + 'repository-case/project-info/',
-			method: 'post',
-			data: params // 如果method为get,传参为params: params
-		})
-	}
+ constructor() {
+  this.baseUrl = 'case-server/'
+ }
+ // 获取用例列表数据 - 总库/项目库
+ getCaseListData(params)
+  return request({
+   url: this.baseUrl + 'repository-case/project-info/',
+   method: 'post',
+   data: params // 如果method为get,传参为params: params
+  })
+ }
 }
 export default Case
 
@@ -114,17 +110,17 @@ export default Case
 <script>
 import Case from '@/api/case'
 export default{
-  method:{
-    getData(){
-      const params = {
-        id: '...'
-      }
-      this.request.getCaseListData(params).then(res => {
-        ...
-      })
-    }
+ method:{
+  getData(){
+   const params = {
+    id: '...'
+   }
+   this.request.getCaseListData(params).then(res => {
+    ...
+   })
   }
-  create(){
-    this.request = new Case()
-  }
+ }
+ create(){
+  this.request = new Case()
+ }
 }
