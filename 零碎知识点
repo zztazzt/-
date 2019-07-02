@@ -109,3 +109,9 @@ show(callback) { // callback为true(下拉框显示)或者false(下拉框隐藏)
     // callback是false时执行这里的代码，即下拉框隐藏时执行
   }
 }
+
+19.后台返回字符串Boolean值时，前端拿到后转为Boolean值
+后台返回数据 data = 'false' 或 data = 'true'
+const flag = Boolean(data === 'true')
+这样flag就是Boolean值了
+不能直接const flag = Boolean(data) 这样flag一直都为true
