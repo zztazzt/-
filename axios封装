@@ -96,15 +96,25 @@ class Case {
   this.baseUrl = 'case-server/'
  }
  // 获取用例列表数据 - 总库/项目库
- getCaseListData(params)
+ getCaseListData(data) {
   return request({
-   url: this.baseUrl + 'repository-case/project-info/',
+   url: this.baseUrl + 'repository-case/project-info/', // 路径传参 `repository-case/project-info/${id}`
    method: 'post',
-   data: params // 如果method为get,传参为params: params
+   data: data // 可简写为data 如果method为get,传参为params: params 可简写为params
   })
  }
 }
 export default Case
+或者
+import request from '@/utils/request'
+const baseUrl = 'case-server/'
+export function getCaseListData(data) {
+ return request({
+  url: baseUrl + 'repository-case/project-info/',
+  method: 'post',
+  data: data // 可简写为data 如果method为get,传参为params: params 可简写为params
+ })
+}
 
 在case.vue中调用
 <script>
