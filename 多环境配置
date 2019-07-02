@@ -5,33 +5,33 @@ env.NODE_ENV = 'production' 删除 改为console.warn('当前NODE_ENV:' + env.NO
 
 config/index.js文件
 const config = {
-	build: {
-		env: require('./dev.env'), // dev是240(开发自测服务),prod是132(用户用的服务),提交代码时不要提交dev
-    ...
-  }
+ build: {
+  env: require('./dev.env'), // dev是240(开发自测服务),prod是132(用户用的服务),提交代码时不要提交dev
+  ...
+ }
 }
 if (env.NODE_ENV === 'production') {
-	console.warn('打包正式环境')
-	console.warn('==================')
-	console.warn('==================')
-	config.build.env = require('./prod.env')
-	console.log('当前Server地址：' + config.build.env.BASE_API)
-	console.log('===================')
-	console.log('===================')
+ console.warn('打包正式环境')
+ console.warn('==================')
+ console.warn('==================')
+ config.build.env = require('./prod.env')
+ console.log('当前Server地址：' + config.build.env.BASE_API)
+ console.log('===================')
+ console.log('===================')
 } else {
-	console.warn('打包测试环境')
-	console.warn('==================')
-	console.warn('==================')
-	console.log('当前Server地址：' + config.build.env.BASE_API)
-	console.log('===================')
-	console.log('===================')
+ console.warn('打包测试环境')
+ console.warn('==================')
+ console.warn('==================')
+ console.log('当前Server地址：' + config.build.env.BASE_API)
+ console.log('===================')
+ console.log('===================')
 }
 module.exports = config
   
 package.json文件
 {
-  "scripts":{
-    "buildDev": "cross-env NODE_ENV=development node build/build.js",
-    "buildProd": "cross-env NODE_ENV=production node build/build.js",
-  }
+ "scripts":{
+  "buildDev": "cross-env NODE_ENV=development node build/build.js",
+  "buildProd": "cross-env NODE_ENV=production node build/build.js",
+ }
 }
