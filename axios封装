@@ -134,3 +134,17 @@ export default{
   this.request = new Case()
  }
 }
+或者
+import { getCaseListData } from '@/api/case'
+export default{
+ method:{
+  getData(){
+   const params = {
+    id: '...'
+   }
+   getCaseListData(params).then(res => {
+    ...
+   })
+  }
+ }
+}
