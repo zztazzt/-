@@ -120,5 +120,6 @@ const flag = Boolean(data === 'true')
 首先在el-dialog标签中加上:before-close="clear"
 clear() {
   this.$refs[表单的ref名称].resetFields()
+  this.dialogVisible = false
 }
 表单提交方法中也要调用clear()
