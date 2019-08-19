@@ -1,0 +1,18 @@
+includes() 和 indexOf()
+const arr = ['a','b','c']
+console.log(arr.includes('a')) // true 返回的是boolean
+console.log(arr.indexOf('a')) // 0 返回的是索引
+
+filter() find() 和 some()
+const arr = [
+  { id: 1,name: 'aa'},
+  { id: 2,name: 'bb'},
+  { id: 3,name: 'cc'},
+  { id: 4,name: 'aa'}
+]
+console.log(arr.filter(item => item.name === 'aa'))
+// [{ id: 1,name: 'aa'}, { id: 4,name: 'aa'}] 返回所有name为aa的对象
+console.log(arr.find(item => item.name === 'aa'))
+// [{ id: 1,name: 'aa'}] 返回第一个找到的name为aa的对象
+console.log(arr.some(item => item.name === 'aa))
+// true 返回boolean
