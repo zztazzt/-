@@ -1,9 +1,9 @@
-includes() 和 indexOf()
+*includes() 和 *indexOf()
 const arr = ['a','b','c']
 console.log(arr.includes('a')) // true 返回的是boolean
 console.log(arr.indexOf('a')) // 0 返回的是索引
 
-filter() find() 和 some()
+*filter() *find() 和 *some()
 const arr = [
   { id: 1,name: 'aa'},
   { id: 2,name: 'bb'},
@@ -17,13 +17,13 @@ console.log(arr.find(item => item.name === 'aa'))
 console.log(arr.some(item => item.name === 'aa))
 // true 返回boolean
 
-concat() ！不改变原数组
+*concat() ！不改变原数组
 const arr = [1,2]
 const arr2 = arr.concat(3,[4,5],[6,7,8])
 console.log(arr) // [1,2]
 console.log(arr2) // [1,2,3,4,5,6,7,8]
 
-push() ！改变原数组
+*push() ！改变原数组
 arr.push(3,4,'a','b')
 console.log(arr) // [1,2,3,4,'a','b']
 
@@ -36,7 +36,7 @@ const concatArr = ['a','b']
 const concatArr2 = concatArr.concat(['c,'d'],[1,2,3])
 console.log(concatArr2) // ['a','b','c','d',1,2,3]
 
-splice() ！返回的是删除的元素组成的数组，改变原数组
+*splice() ！返回的是删除的元素组成的数组，改变原数组
 删除
 const arr = [1,2,3,4,5,6,7]
 const arr2 = arr.splice(2,3)
