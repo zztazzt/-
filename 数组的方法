@@ -16,3 +16,45 @@ console.log(arr.find(item => item.name === 'aa'))
 // [{ id: 1,name: 'aa'}] 返回第一个找到的name为aa的对象
 console.log(arr.some(item => item.name === 'aa))
 // true 返回boolean
+
+concat() ！不改变原数组
+const arr = [1,2]
+const arr2 = arr.concat(3,[4,5],[6,7,8])
+console.log(arr) // [1,2]
+console.log(arr2) // [1,2,3,4,5,6,7,8]
+
+push() ！改变原数组
+arr.push(3,4,'a','b')
+console.log(arr) // [1,2,3,4,'a','b']
+
+！concat方法不改变原数组，push改变原数组
+
+const arr = ['a','b']
+arr.push(['c','d'],[1,2,3])
+console.log(arr) // ['a','b',Array[2],Array[3]]
+const concatArr = ['a','b']
+const concatArr2 = concatArr.concat(['c,'d'],[1,2,3])
+console.log(concatArr2) // ['a','b','c','d',1,2,3]
+
+splice() ！返回的是删除的元素组成的数组，改变原数组
+删除
+const arr = [1,2,3,4,5,6,7]
+const arr2 = arr.splice(2,3)
+console.log(arr) // [1,2,6,7]
+console.log(arr2) // [3,4,5]
+插入
+const arr = [1,2,3,4,5,6,7]
+const arr2 = arr.splice(2,0,'a','b','c','d')
+console.log(arr) // [1,2,'a','b','c','d',3,4,5,6,7]
+console.log(arr2) // [] 返回空数组，因为没删除东西
+替换
+const arr = [1,2,3,4,5,6,7,8]
+const arr2 = arr.splice(1,4,'a','b','c','d')
+console.log(arr) // [1,'a','b','c','d',6,7,8]
+console.log(arr2) // [2,3,4,5]
+
+当起始位置是负数时，则用数组长度length加上该数来确定位置
+const arr = [0,1,2,3,4,5,6]
+const arr2 = arr.splice(-2,3,'a','b','c')
+console.log(arr) // [0,1,2,3,4,'a','b','c']
+console.log(arr2) // [5,6]
