@@ -90,3 +90,17 @@ const food = ingredients.reduce((all,item,index,array)=> {
  return (index < array.length - 1) ? all += `${cook(item)},` : all += cook(item)
 },'')
 // food = "cooked tomato,cooked egg,cooked meat"
+
+/** 第一种 **/
+let a = [1,2,3];
+let b = a.reduce((i, j) => {
+  return i + j;
+}, 0);
+console.log(b) // 6
+/** 第二种 **/
+let a = [1,2,3];
+let b = a.reduce((i,j) => {
+	i.push(j)
+	return i
+},[0])
+console.log(b) // [0,1,2,3]
