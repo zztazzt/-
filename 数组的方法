@@ -3,7 +3,7 @@ const arr = ['a','b','c']
 console.log(arr.includes('a')) // true 返回的是boolean
 console.log(arr.indexOf('a')) // 0 返回的是索引
 
-*filter() *find() 和 *some()
+*filter() *find() *findIndex() *some() *every()
 const arr = [
   { id: 1,name: 'aa'},
   { id: 2,name: 'bb'},
@@ -14,8 +14,18 @@ console.log(arr.filter(item => item.name === 'aa'))
 // [{ id: 1,name: 'aa'}, { id: 4,name: 'aa'}] 返回所有name为aa的对象
 console.log(arr.find(item => item.name === 'aa'))
 // [{ id: 1,name: 'aa'}] 返回第一个找到的name为aa的对象
+console.log(arr.findIndex(item => item.name === 'aa'))
+// 0 返回数组中符合条件的第一个元素的索引值
 console.log(arr.some(item => item.name === 'aa))
-// true 返回boolean
+// true 返回boolean 判断数组中有一个元素符合条件
+console.log(arr.every(item => item.name === 'aa'))
+// false 返回boolean 判断数组中所有的元素都符合条件
+
+*map() ！不改变原数组
+根据callback中的条件，返回一个新数组
+const arr = [1,2]
+const arr2 = arr.map(item => item+2)
+console.log(arr2) // [3,4]
 
 *concat() ！不改变原数组
 const arr = [1,2]
@@ -59,7 +69,7 @@ const arr2 = arr.splice(-2,3,'a','b','c')
 console.log(arr) // [0,1,2,3,4,'a','b','c']
 console.log(arr2) // [5,6]
 
-reduce() ！方法接受一个数组作为输入值并返回一个值
+*reduce() ！方法接受一个数组作为输入值并返回一个值
 reduce 接受一个回调函数，回调函数参数包括一个累计器accumulator（数组每一段的累加值，它会像雪球一样增长），当前值currentValue，索引currentIndex和数组array。
 reduce 也接受一个初始值作为第二个参数initalValue
 let finalVal = oldArray.reduce((accumulator, currentValue, currentIndex, array) => {
