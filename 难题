@@ -1,0 +1,23 @@
+1.表格中每一行都是checkbox，checkbox的选中与不选中没有触发vue的updated()方法。
+在表格最后一列加入input框，input框输入不了，没有触发视图刷新，强制刷新也没用
+解决办法：在input的change方法中（若input的type="textarea",则是input方法）将表格数据结构后重新赋值 即this.tableData = [...this.tableData]
+利用这种方法使数据更新来触发视图更新
+2.页面请求多次404或401时，会提示多次404或401，用户体验不佳
+在请求的error里面写
+const node = {
+  status: error.response.status,
+  message: (error.response.data && error.response.data.message) || error.message
+}
+if (!errorArr.some(item => item.status === node.status)) {
+  errorArr.push(node)
+  Message({
+    message: node.message,
+    type: 'error',
+    duration: 5 * 1000
+  })
+  setTimeout(() => {
+    errorArr = []
+  }, 300)
+}
+把每次请求返回的数据放入一个数组，若数组中已有相同的，就不放，判断数组中没有相同的后就打印message，然后在300毫秒后清空该数组，这样刷新或点击别的路由后
+才会再提示404或401，不清空会所有请求的404只提示一次，目的是解决一个页面也就是一小段时间内发送多个请求时的提示
