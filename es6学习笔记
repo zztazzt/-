@@ -9,3 +9,49 @@ let foo;
 console.log(foo); //控制台输出zzt
 
 *扩展运算符 和 rest运算符
+rest运算符也是用三个点表示
+function zzt(first, ...arg){ // 若写成(...arg, first)会报错
+  for(let data of arg) {
+    console.log(data)
+  }
+}
+zzt(0,1,2,3)
+// 1 // 2 // 3
+
+*模板字符串
+const a = 'zzt'
+`hello,${a}`
+
+*字符串查找
+includes()
+startsWith() 查找开头有没有
+endsWith() 查找结尾有没有
+'zzt'.repeat(3) // zztzztzzt 字符串复制
+
+*数字的操作
+判断是否是数字Number.isFinite()
+console.log(Number.isFinite(1)) // true
+console.log(Number.isFinite('zzt')) //false
+console.log(Number.isFinite(NaN)) //false
+console.log(Number.isFinite(undefined)) //false
+
+NaN要用Number.isNaN(NaN)判断 // true
+
+判断是否为整数Number.isInteger()
+整数转换Number.parseInt()
+浮点型转换Number.parseFloat()
+
+整数的取值范围
+let max = Math.pow(2, 53) - 1
+console.log(max) //9007199254740991
+最大安全整数
+console.log(Number.MAX_SAFE_INTEGER) //9007199254740991
+最小安全整数
+console.log(Number.MIN_SAFE_INTEGER) //-9007199254740991
+判断是否是安全整数
+Number.isSafeInteger(max) // true
+
+数组的方法
+Array.from() 将含有length属性的对象转换为数组
+Array.of() 把一堆文本或者变量转换成数组
+console.log(Array.of(1,2,3)) // [1,2,3]
