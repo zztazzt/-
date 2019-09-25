@@ -8,4 +8,4 @@ let foo;
 ({foo} ={foo:'zzt'});
 console.log(foo); //控制台输出zzt
 
-*扩展运算符
+*扩展运算符 和 rest运算符
