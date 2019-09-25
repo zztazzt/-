@@ -79,3 +79,20 @@ console.log('a' in obj) //true
 let arr = [,,,]
 console.log(0 in arr) // false
 console.log(arr.length) // 3
+
+Object.is() 对象比较
+let obj1 = { name: 'zzt' }
+let obj2 = { name: 'zzt' }
+console.log(obj1.name === obj2.name) //true
+console.log(Object.is(obj1.name, obj2.name)) //true
+console.log(+0 === -0);  //true
+console.log(NaN === NaN ); //false
+console.log(Object.is(+0,-0)); //false
+console.log(Object.is(NaN,NaN)); //true
+===为同值相等，is()为严格相等
+
+Object.assign()合并对象
+let obj1 = { name: 'zzt'}
+let obj2 = { a: '111' }
+let obj3 = Object.assign(obj1, obj2)
+console.log(obj3) // {name: "zzt", a: "111"}
