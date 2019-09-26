@@ -21,3 +21,17 @@ if (!errorArr.some(item => item.status === node.status)) {
 }
 把每次请求返回的数据放入一个数组，若数组中已有相同的，就不放，判断数组中没有相同的后就打印message，然后在300毫秒后清空该数组，这样刷新或点击别的路由后
 才会再提示404或401，不清空会所有请求的404只提示一次，目的是解决一个页面也就是一小段时间内发送多个请求时的提示
+
+3.element-ui的table里面 
+如果想对某一列的数据做处理，只能用template
+例如
+<el-table-column label="项目代号" prop="projectCode" align="center">
+  <template slot-scope="scope">
+    {{'aaa'+scope.row.projectCode}}
+  </template>
+</el-table-column>
+换行了的话，表格中数据也会换行
+<el-table-column label="项目代号" prop="projectCode" align="center">
+  <template slot-scope="scope">{{'aaa'+scope.row.projectCode}}</template>
+</el-table-column>
+这样不换行的话才可以，那如果要写很多代码的话怎么处理呢？
