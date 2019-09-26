@@ -96,3 +96,38 @@ let obj1 = { name: 'zzt'}
 let obj2 = { a: '111' }
 let obj3 = Object.assign(obj1, obj2)
 console.log(obj3) // {name: "zzt", a: "111"}
+
+Set()
+let set = new Set(['z','z','t'])
+console.log(set.size) // 2
+console.log(set) // Set(2) {"z", "t"}
+增
+set.add('aaa')
+console.log(set) // Set(3) {"z", "t", "aaa"}
+删
+set.delete('aaa')
+console.log(set) // Set(2) {"z", "t"}
+查
+console.log(setArr.has('z'));//true
+清除
+set.clear();
+console.log(set) // Set(0) {}
+
+map数据结构
+let json = {
+  name: 'zzt',
+  skill: 'web'
+}
+var map = new Map()
+增
+map.set('id', json)
+console.log(map.size) // 1
+console.log(map) // Map(1) {"id" => {name: 'zzt',skill: 'web'}}
+取
+console.log(map.get('id')) //{name: "zzt", skill: "web"}
+删
+map.delete('id') // Map(0) {}
+查
+console.log(map.has('id')) // true
+清除
+map.clear()
