@@ -128,3 +128,16 @@ clear() {
 rem是根据根(html)的font-size变化，而em是根据父级的font-size变化
 rem：相对于根元素html的font-size，假如html为font-size：12px，那么，在其当中的div设置为font-size：2rem,就是当中的div为24px
 em：相对于父元素计算，假如某个p元素为font-size:12px,在它内部有个span标签，设置font-size：2em,那么，这时候的span字体大小为：12*2=24px
+
+22.父传子props的问题
+当子组件和父组件在同一个页面显示数据时，这个页面一开始就应该获取到父组件传给子组件的props
+但是子组件先与父组件created，所以在子组件的方法中获取props里面的数据会是空
+解决方法：
+在子组件中watch该props， 例如props: ['tableData']
+watch:{
+ tableData(val){
+  this.data = val
+  this.update()
+ }
+}
+然后把update方法当做该子组件的created钩子，在update方法中初始化数据。
