@@ -1,6 +1,6 @@
 1.表格中每一行都是checkbox，checkbox的选中与不选中没有触发vue的updated()方法。
 在表格最后一列加入input框，input框输入不了，没有触发视图刷新，强制刷新也没用
-解决办法：在input的change方法中（若input的type="textarea",则是input方法）将表格数据结构后重新赋值 即this.tableData = [...this.tableData]
+解决办法：在input的change方法中（若input的type="textarea",则是input方法）将表格数据解构后重新赋值 即this.tableData = [...this.tableData]
 利用这种方法使数据更新来触发视图更新
 2.页面请求多次404或401时，会提示多次404或401，用户体验不佳
 在请求的error里面写
